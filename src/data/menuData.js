@@ -1,0 +1,55 @@
+// src/data/menuData.js
+const menuData = [
+  { id: 1, name: "Wonton Soup", category: "Soup", price: 6.99, image: `${process.env.PUBLIC_URL}/images/wonton-soup.jpg` },
+  { id: 2, name: "Chicken Soup", category: "Soup", price: 7.99, image: `${process.env.PUBLIC_URL}/images/chicken-soup.jpg` },
+  { id: 3, name: "Tomato Egg Soup", category: "Soup", price: 6.99, image: `${process.env.PUBLIC_URL}/images/tomato-egg-soup.jpg` },
+  { id: 4, name: "Miso Soup", category: "Soup", price: 6.99, image: `${process.env.PUBLIC_URL}/images/miso-soup.jpg` },
+  { id: 5, name: "Seafood Soup", category: "Soup", price: 8.99, image: `${process.env.PUBLIC_URL}/images/seafood-soup.jpg` },
+  { id: 6, name: "West Lake Soup", category: "Soup", price: 9.99, image: `${process.env.PUBLIC_URL}/images/west-lake-soup.jpg` },
+
+  { id: 7, name: "Pork Chop Rice", category: "Rice", price: 12.99, image: `${process.env.PUBLIC_URL}/images/pork-chop-rice-rice.jpg` },
+  { id: 8, name: "Beef Brisket Rice", category: "Rice", price: 12.99, image: `${process.env.PUBLIC_URL}/images/beef-brisket-rice-rice.jpg` },
+  { id: 9, name: "Braised Pork Rice", category: "Rice", price: 12.99, image: `${process.env.PUBLIC_URL}/images/braised-pork-rice-rice.jpg` },
+  { id: 10, name: "Beef Short Ribs Rice", category: "Rice", price: 16.99, image: `${process.env.PUBLIC_URL}/images/beef-short-ribs-rice-rice.jpg` },
+  { id: 11, name: "Beef Fried Rice", category: "Rice", price: 13.99, image: `${process.env.PUBLIC_URL}/images/beef-fried-rice-rice.jpg` },
+  { id: 12, name: "Chicken Fried Rice", category: "Rice", price: 12.99, image: `${process.env.PUBLIC_URL}/images/chicken-fried-rice-rice.jpg` },
+  { id: 13, name: "Vegie Fried Rice", category: "Rice", price: 11.99, image: `${process.env.PUBLIC_URL}/images/vegie-fried-rice-rice.jpg` },
+  { id: 14, name: "Brown Rice", category: "Rice", price: 1.99, image: `${process.env.PUBLIC_URL}/images/brown-rice-rice.jpg` },
+  { id: 15, name: "White Rice", category: "Rice", price: 1.99, image: `${process.env.PUBLIC_URL}/images/white-rice-rice.jpg` },
+
+  { id: 16, name: "Traditional Beijing Noodle", category: "Noodle", price: 11.99, image: `${process.env.PUBLIC_URL}/images/traditional-beijing-noodle.jpg` },
+  { id: 17, name: "Eel Lo Mein", category: "Noodle", price: 14.99, image: `${process.env.PUBLIC_URL}/images/eel-lo-mein-noodle.jpg` },
+  { id: 18, name: "Pork Lo Mein", category: "Noodle", price: 13.99, image: `${process.env.PUBLIC_URL}/images/pork-lo-mein-noodle.jpg` },
+  { id: 19, name: "Beef Lo Mein", category: "Noodle", price: 14.99, image: `${process.env.PUBLIC_URL}/images/beef-lo-mein-noodle.jpg` },
+  { id: 20, name: "Chicken Lo Mein", category: "Noodle", price: 12.99, image: `${process.env.PUBLIC_URL}/images/chicken-lo-mein-noodle.jpg` },
+  { id: 21, name: "Pork Noodle", category: "Noodle", price: 13.99, image: `${process.env.PUBLIC_URL}/images/pork-noodle.jpg` },
+  { id: 22, name: "Roasted Duck Noodle", category: "Noodle", price: 14.99, image: `${process.env.PUBLIC_URL}/images/roast-duck-noodle.jpg` },
+  { id: 23, name: "Beef Udon", category: "Noodle", price: 7.99, image: `${process.env.PUBLIC_URL}/images/beef-udon-noodle.jpg` },
+
+  { id: 24, name: "Pork Bun", category: "Appetizer", price: 7.99, image: `${process.env.PUBLIC_URL}/images/pork-bun-appetizer.jpg` },
+  { id: 25, name: "Edamame", category: "Appetizer", price: 7.99, image: `${process.env.PUBLIC_URL}/images/edamame-appetizer.jpg` },
+  { id: 26, name: "Fried Pumpkin Pie", category: "Appetizer", price: 8.99, image: `${process.env.PUBLIC_URL}/images/pumpkin-pie-appetizer.jpg` },
+  { id: 27, name: "Tempura Shrimp", category: "Appetizer", price: 7.99, image: `${process.env.PUBLIC_URL}/images/tempura-shrimp-appetizer.jpg` },
+  { id: 28, name: "Spicy Beef Tender", category: "Appetizer", price: 9.99, image: `${process.env.PUBLIC_URL}/images/spicy-beef-tender-appetizer.jpg` },
+  { id: 29, name: "Scallion Pancakes", category: "Appetizer", price: 5.99, image: `${process.env.PUBLIC_URL}/images/scallion-pancakes-appetizer.jpg` },
+  { id: 30, name: "Chicken Egg Roll", category: "Appetizer", price: 1.99, image: `${process.env.PUBLIC_URL}/images/chicken-egg-roll-appetizer.jpg` },
+  { id: 31, name: "Vegie Egg Roll", category: "Appetizer", price: 1.49, image: `${process.env.PUBLIC_URL}/images/vegie-egg-roll-appetizer.jpg` },
+  { id: 32, name: "Spring Roll", category: "Appetizer", price: 1.49, image: `${process.env.PUBLIC_URL}/images/spring-roll-appetizer.jpg` },
+  { id: 33, name: "Seaweed Salad", category: "Appetizer", price: 4.99, image: `${process.env.PUBLIC_URL}/images/seaweed-salad-appetizer.jpg` },
+  { id: 34, name: "Black Wood Ear", category: "Appetizer", price: 5.99, image: `${process.env.PUBLIC_URL}/images/wood-ear-appetizer.jpg` },
+  { id: 35, name: "Crab Rangoon", category: "Appetizer", price: 1.99, image: `${process.env.PUBLIC_URL}/images/crab-rangoon-appetizer.jpg` },
+  { id: 36, name: "Dumplings", category: "Appetizer", price: 7.99, image: `${process.env.PUBLIC_URL}/images/dumplings-appetizer.jpg` },
+  { id: 37, name: "Sumai", category: "Appetizer", price: 6.99, image: `${process.env.PUBLIC_URL}/images/sumai-appetizer.jpg` },
+
+  { id: 38, name: "Bubble Tea", category: "Drink", price: 5.99, image: `${process.env.PUBLIC_URL}/images/bubble-tea-drink.jpg` },
+  { id: 39, name: "Chinese Ice Tea", category: "Drink", price: 1.99, image: `${process.env.PUBLIC_URL}/images/chinese-ice-tea-drink.jpg` },
+  { id: 40, name: "Soy Milk", category: "Drink", price: 2.99, image: `${process.env.PUBLIC_URL}/images/soy-milk-drink.jpg` },
+  { id: 41, name: "Bottle Water", category: "Drink", price: 0.99, image: `${process.env.PUBLIC_URL}/images/water-drink.jpg` },
+  { id: 42, name: "Mountain Dew", category: "Drink", price: 1.49, image: `${process.env.PUBLIC_URL}/images/mountain-dew-drink.jpg` },
+  { id: 43, name: "Coke", category: "Drink", price: 1.49, image: `${process.env.PUBLIC_URL}/images/coke-drink.jpg` },
+  { id: 44, name: "Diet Coke", category: "Drink", price: 1.49, image: `${process.env.PUBLIC_URL}/images/diet-coke-drink.jpg` },
+  { id: 45, name: "Pepsi", category: "Drink", price: 1.49, image: `${process.env.PUBLIC_URL}/images/pepsi-drink.jpg` },
+  { id: 46, name: "Diet Pepsi", category: "Drink", price: 1.49, image: `${process.env.PUBLIC_URL}/images/diet-pepsi-drink.jpg` }
+];
+
+export default menuData;
