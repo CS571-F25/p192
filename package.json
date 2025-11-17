@@ -1,5 +1,5 @@
 {
-  "name": "p0-project",
+  "name": "p192-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +11,14 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
-    "react-router": "^7.9.5"
+    "react-router": "^7.9.5",
+    "react-router-dom": "^7.9.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

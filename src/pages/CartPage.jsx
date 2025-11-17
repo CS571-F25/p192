@@ -1,52 +1,75 @@
 // src/pages/CartPage.jsx
-import React from "react";
-import { Container, Row, Col, Button, Table } from "react-bootstrap";
+import React, { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { Card, Button, Row, Col, Container } from "react-bootstrap";
 
-export default function CartPage({ cart, setCart }) {
+export default function CartPage() {
+  const { cart, addToCart, decrementFromCart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
-
-  const removeItem = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <Container>
-      <h2 className="mt-3">Cart</h2>
+    <Container className="my-4">
+      <h1 className="mb-4 text-center">Your Cart</h1>
+
       {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="text-center">
+          <p>Your cart is empty.</p>
+          <Button variant="primary" onClick={() => navigate("/menu")}>
+            Back to Menu
+          </Button>
+        </div>
       ) : (
         <>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>${item.price.toFixed(2)}</td>
-                  <td>{item.quantity}</td>
-                  <td>${(item.price * item.quantity).toFixed(2)}</td>
-                  <td>
-                    <Button variant="danger" onClick={() => removeItem(item.id)}>
-                      Remove
-                    </Button>
-                  </td>
-                </tr>
-              ))}Sea
-            </tbody>
-          </Table>
-          <h4>Total: ${total.toFixed(2)}</h4>
-          <Button onClick={() => navigate("/checkout")}>Proceed to Checkout</Button>
+          <Row className="g-3">
+            {cart.map((item) => (
+              <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
+                <Card className="h-100">
+                  <Card.Img
+                    variant="top"
+                    src={`${import.meta.env.BASE_URL}${item.image}`}
+                    alt={item.name}
+                    style={{ height: "180px", objectFit: "cover" }}
+                  />
+                  <Card.Body className="d-flex flex-column">
+                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Text className="flex-grow-1">
+                      {item.category} <br />
+                      ${item.price.toFixed(2)}
+                    </Card.Text>
+
+                    <div className="d-flex align-items-center justify-content-between">
+                      <Button variant="outline-danger" onClick={() => decrementFromCart(item.id)}>
+                        -
+                      </Button>
+                      <span>{item.quantity}</span>
+                      <Button variant="outline-success" onClick={() => addToCart(item)}>
+                        +
+                      </Button>
+                    </div>
+
+                    
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+          <h3 className="mt-4 text-center">Total: ${total.toFixed(2)}</h3>
+
+          <div className="d-flex justify-content-center gap-3 mt-3 flex-wrap">
+            <Button variant="primary" onClick={() => navigate("/checkout")}>
+              Proceed to Checkout
+            </Button>
+            <Button variant="outline-secondary" onClick={() => navigate("/menu")}>
+              Back to Menu
+            </Button>
+            <Button variant="danger" onClick={clearCart}>
+              Clear Cart
+            </Button>
+          </div>
         </>
       )}
     </Container>

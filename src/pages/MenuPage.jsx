@@ -1,111 +1,115 @@
 // src/pages/MenuPage.jsx
-import React, { useState } from "react";
-import menuData from "../data/menuData";
+import React, { useEffect, useState, useContext } from "react";
+import { getFoods } from "../services/api";
+import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 import FoodCard from "../components/FoodCard";
-import { Container, Row, Col, Form, Button, Dropdown } from "react-bootstrap";
+import AdminOnly from "../components/AdminOnly";
+import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-const categories = ["All", "Soup", "Rice", "Noodle", "Appetizer", "Drink"];
+import PaginationBar from "../components/PaginationBar";
+import NavbarHeader from "../components/NavbarHeader";
+import CategorySidebar from "../components/CategorySidebar";
+import SearchBar from "../components/SearchBar";
 
-export default function MenuPage({ cart, setCart }) {
+export default function MenuPage() {
+  const [foods, setFoods] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
 
-  const addToCart = (item) => {
-    const existing = cart.find((i) => i.id === item.id);
-    if (existing) {
-      setCart(
-        cart.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        )
-      );
-    } else {
-      setCart([...cart, { ...item, quantity: 1 }]);
-    }
+  useEffect(() => {
+  setCurrentPage(1);
+}, [searchTerm, selectedCategory]);
+
+  const { addToCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+  const fetchFoods = async () => {
+    const data = await getFoods(); // returns array now
+    setFoods(data);
+
+    const cats = Array.from(new Set(data.map((food) => food.category)));
+    setCategories(cats);
   };
+  fetchFoods();
+}, []);
 
-  const filteredItems = menuData.filter((item) => {
-    const matchesCategory =
-      selectedCategory === "All" || item.category === selectedCategory;
-    const matchesSearch = item.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+
+
+  // Filter foods by search and category
+  const filteredFoods = foods.filter((food) => {
+    const matchesSearch = food.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || food.category === selectedCategory;
+    return matchesSearch && matchesCategory;
   });
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const indexOfLast = currentPage * itemsPerPage;
-  const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentItems = filteredItems.slice(indexOfFirst, indexOfLast);
+  // Pagination
+  const totalPages = Math.ceil(filteredFoods.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const paginatedFoods = filteredFoods.slice(startIdx, startIdx + itemsPerPage);
 
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const handleCategoryChange = (cat) => {
-    setSelectedCategory(cat);
-    setCurrentPage(1);
-  };
 
   return (
-    <Container>
-      <h2 className="mt-3 mb-3">Menu</h2>
+    <Container fluid className="my-4">
+      {/* Navbar */}
+      <NavbarHeader />
 
-      <Row className="mb-4">
-        <Col md={6}>
-          <Form.Control
-            type="text"
-            placeholder="Search food..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Col>
-        <Col md={6}>
-          <Dropdown onSelect={handleCategoryChange}>
-            <Dropdown.Toggle variant="secondary">
-              {selectedCategory}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {categories.map((cat) => (
-                <Dropdown.Item key={cat} eventKey={cat}>
-                  {cat}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-      </Row>
+      <h1 className="text-center mb-4">Menu</h1>
+
+      {/* Admin buttons */}
+      <AdminOnly>
+        <div className="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+          <Button onClick={() => navigate("/foods/add")}>Add Food</Button>
+          <Button onClick={() => navigate("/foods/manage")}>Manage Foods</Button>
+        </div>
+      </AdminOnly>
 
       <Row>
-        {currentItems.map((item) => (
-          <Col key={item.id} md={4}>
-            <FoodCard item={item} addToCart={() => addToCart(item)} />
-          </Col>
-        ))}
-        {currentItems.length === 0 && <Col>No items found.</Col>}
-      </Row>
-
-      <Row className="mt-4 mb-5">
-        <Col className="d-flex justify-content-center align-items-center">
-          <Button
-            variant="outline-primary"
-            onClick={handlePrev}
-            disabled={currentPage === 1}
-            className="me-2"
-          >
-            Previous
-          </Button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <Button
-            variant="outline-primary"
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-            className="ms-2"
-          >
-            Next
-          </Button>
+        {/* Category sidebar */}
+        <Col xs={12} md={2}>
+          <CategorySidebar
+            categories={["All", ...categories]}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
         </Col>
+
+      
+        {/* Main content */}
+      <Col xs={12} md={10}>
+    <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm}/>
+
+  {/* Center the row */}
+  <Row className="g-3">
+  {paginatedFoods.length > 0 ? (
+    paginatedFoods.map((food) => (
+      <Col key={food.id} xs={12} sm={6} md={4} lg={3}>
+        <FoodCard food={food} onAdd={() => addToCart(food)} />
+      </Col>
+    ))
+  ) : (
+    <Col>
+      <p className="text-center mt-4">No foods found.</p>
+    </Col>
+  )}
+</Row>
+
+  <PaginationBar
+    currentPage={currentPage}
+    totalPages={totalPages}
+    onPrev={handlePrev}
+    onNext={handleNext}
+  />
+</Col>
       </Row>
     </Container>
   );
