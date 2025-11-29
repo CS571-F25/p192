@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import FoodCard from "../components/FoodCard";
 import AdminOnly from "../components/AdminOnly";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Toast, ToastContainer} from "react-bootstrap";
 
 import PaginationBar from "../components/PaginationBar";
 import NavbarHeader from "../components/NavbarHeader";
@@ -19,10 +19,11 @@ export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
-  useEffect(() => {
-  setCurrentPage(1);
-}, [searchTerm, selectedCategory]);
+
+  useEffect(() => {setCurrentPage(1);}, [searchTerm, selectedCategory]);
 
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
@@ -58,6 +59,13 @@ export default function MenuPage() {
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
 
+   const handleAddToCart = (food) => {
+    addToCart(food);
+    setToastMessage(`${food.name} added to cart!`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+    };
+
   return (
     <Container fluid className="my-4">
       {/* Navbar */}
@@ -92,8 +100,10 @@ export default function MenuPage() {
   <Row className="g-3">
   {paginatedFoods.length > 0 ? (
     paginatedFoods.map((food) => (
-      <Col key={food.id} xs={12} sm={6} md={4} lg={3}>
-        <FoodCard food={food} onAdd={() => addToCart(food)} />
+      <Col key={food.uuid} xs={12} sm={6} md={4} lg={3}>
+        <FoodCard food={food} 
+        onAdd={user.role !== "manager" ? () => handleAddToCart(food) : null} >
+        </FoodCard>
       </Col>
     ))
   ) : (
@@ -111,6 +121,22 @@ export default function MenuPage() {
   />
 </Col>
       </Row>
+
+       {/* Toast Notification */}
+      <ToastContainer className="p-3" position="bottom-end">
+        <Toast
+          show={showToast}
+          bg="primary"
+          onClose={() => setShowToast(false)}
+          delay={2000}
+          autohide
+        >
+          <Toast.Header>
+            <strong className="me-auto">Cart</strong>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Container>
   );
 }

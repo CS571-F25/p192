@@ -1,7 +1,7 @@
 // src/services/auth.js
 
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode"; // ✅ named import
+import { jwtDecode } from "jwt-decode";
 
 // Save JWT token to cookie
 export function saveToken(token) {

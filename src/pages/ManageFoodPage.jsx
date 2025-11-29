@@ -9,7 +9,7 @@ import PaginationBar from "../components/PaginationBar";
 
 
 export default function ManageFoodPage() {
-  const { user, token } = useContext(AuthContext); // need token for delete/edit
+  const { token } = useContext(AuthContext); // need token for delete/edit
   const navigate = useNavigate();
 
 
@@ -22,7 +22,7 @@ export default function ManageFoodPage() {
   useEffect(() => {
     const fetchFoods = async () => {
       const data = await getFoods();
-      setFoods(data);
+      setFoods(data); // uuid included
     };
     fetchFoods();
   }, []);
@@ -39,23 +39,20 @@ export default function ManageFoodPage() {
 
 
   // Delete food
-  const handleDelete = async (foodId) => {
+  const handleDelete = async (uuid) => {
     const confirmed = window.confirm("Are you sure you want to delete this food?");
     if (!confirmed) return;
 
 
-    const success = await deleteFood(foodId, token);
-    if (success) {
-      setFoods(foods.filter((f) => f.id !== foodId));
-    } else {
-      alert("Failed to delete food. Try again.");
-    }
+    const success = await deleteFood(uuid, token);
+    if (success) setFoods(prev => prev.filter(f => f.uuid !== uuid));
+    else alert("Delete failed.");
   };
 
 
   // Edit food
-  const handleEdit = (foodId) => {
-    navigate(`/foods/edit/${foodId}`);
+  const handleEdit = (uuid) => {
+    navigate(`/foods/edit/${uuid}`);
   };
 
 
@@ -79,16 +76,8 @@ export default function ManageFoodPage() {
       ) : (
         <Row>
           {paginatedFoods.map((food) => (
-            <Col key={food.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <FoodCard food={food} />
-              <div className="d-flex justify-content-between mt-2">
-                <Button variant="warning" size="sm" onClick={() => handleEdit(food.id)}>
-                  Edit
-                </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(food.id)}>
-                  Delete
-                </Button>
-              </div>
+            <Col key={food.uuid} xs={12} sm={6} md={4} lg={3} className="mb-4">
+              <FoodCard food={food} onEdit={handleEdit} onDelete={handleDelete} />
             </Col>
           ))}
         </Row>

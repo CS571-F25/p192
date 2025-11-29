@@ -1,10 +1,10 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "../context/AuthContext"; // adjust path if needed
+import { AuthContext } from "../context/AuthContext"; 
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const { user } = useContext(AuthContext); // <-- get current logged-in user
+  const { user } = useContext(AuthContext); // get current logged-in user
 
   const storageKey = user ? `cart_${user.username}` : "cart_guest";
 
@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Reload cart when user changes (IMPORTANT!)
+  // Reload cart when user changes
   useEffect(() => {
     const saved = sessionStorage.getItem(storageKey);
     setCart(saved ? JSON.parse(saved) : []);
@@ -26,11 +26,11 @@ export const CartProvider = ({ children }) => {
   }, [cart, storageKey]);
 
   const addToCart = (item) => {
-    const existing = cart.find((i) => i.id === item.id);
+    const existing = cart.find((i) => i.uuid === item.uuid);
     if (existing) {
       setCart(
         cart.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.uuid === item.uuid ? { ...i, quantity: i.quantity + 1 } : i
         )
       );
     } else {
@@ -38,22 +38,22 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const decrementFromCart = (id) => {
-    const existing = cart.find((i) => i.id === id);
+  const decrementFromCart = (uuid) => {
+    const existing = cart.find((i) => i.uuid === uuid);
     if (!existing) return;
 
     if (existing.quantity > 1) {
       setCart(
         cart.map((i) =>
-          i.id === id ? { ...i, quantity: i.quantity - 1 } : i
+          i.uuid === uuid ? { ...i, quantity: i.quantity - 1 } : i
         )
       );
     } else {
-      setCart(cart.filter((i) => i.id !== id));
+      setCart(cart.filter((i) => i.uuid !== uuid));
     }
   };
 
-  const removeFromCart = (id) => setCart(cart.filter((i) => i.id !== id));
+  const removeFromCart = (uuid) => setCart(cart.filter((i) => i.uuid !== uuid));
   const clearCart = () => setCart([]);
 
   return (

@@ -25,7 +25,7 @@ export default function CartPage() {
         <>
           <Row className="g-3">
             {cart.map((item) => (
-              <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
+              <Col key={item.uuid} xs={12} sm={6} md={4} lg={3}>
                 <Card className="h-100">
                   <Card.Img
                     variant="top"
@@ -41,7 +41,7 @@ export default function CartPage() {
                     </Card.Text>
 
                     <div className="d-flex align-items-center justify-content-between">
-                      <Button variant="outline-danger" onClick={() => decrementFromCart(item.id)}>
+                      <Button variant="outline-danger" onClick={() => decrementFromCart(item.uuid)}>
                         -
                       </Button>
                       <span>{item.quantity}</span>

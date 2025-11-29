@@ -36,7 +36,7 @@ export default function CheckoutPage() {
         <>
           <Row xs={1} sm={2} md={3} lg={4} className="g-3">
             {cart.map((item) => (
-              <Col key={item.id}>
+              <Col key={item.uuid}>
                 <Card className="h-100">
                   <Card.Img
                     variant="top"

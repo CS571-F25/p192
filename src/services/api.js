@@ -10,10 +10,6 @@ const HEADERS = {
 };
 
 
-// =====================
-// AUTH REQUESTS
-// =====================
-
 
 // Register user
 export async function registerUser(username, password, role) {
@@ -56,10 +52,6 @@ export async function loginRequest(username, password) {
 }
 
 
-// =====================
-// FOOD REQUESTS
-// =====================
-
 
 // GET all foods
 
@@ -69,58 +61,45 @@ export async function getFoods() {
   const data = await res.json();
   return Object.entries(data.results).map(([uuid, food]) => ({
     ...food,
-    id: uuid
+    uuid
   }));
 }
 
 
 // POST new food (Admin only)
-export async function addFood(food, token) {
+export async function addFood(food,token) {
   const res = await fetch(`${BASE_URL}/foods`, {
     method: "POST",
-    headers: {
-      ...HEADERS,
-      Authorization: `Bearer ${token}`
-    },
+    headers: { ...HEADERS, Authorization: `Bearer ${token}` },
     body: JSON.stringify(food),
   });
   return res.ok;
 }
 
 
-// PUT update food
-export async function updateFood(foodId, food, token) {
-  const res = await fetch(`${BASE_URL}/foods/${foodId}`, {
+// PUT update food (Admin only )
+export async function updateFood(uuid, food, token) {
+  const res = await fetch(`${BASE_URL}/foods?id=${uuid}`, {
     method: "PUT",
-    headers: {
-      ...HEADERS,
-      Authorization: `Bearer ${token}`
-    },
+     headers: { ...HEADERS, Authorization: `Bearer ${token}` },
     body: JSON.stringify(food),
   });
   return res.ok;
 }
 
 
-// DELETE food
-export async function deleteFood(foodId, token) {
-  const res = await fetch(`${BASE_URL}/foods/${foodId}`, {
+// DELETE food (Admin only)
+export async function deleteFood(uuid,token) {
+  const res = await fetch(`${BASE_URL}/foods?id=${uuid}`, {
     method: "DELETE",
-    headers: {
-      ...HEADERS,
-      Authorization: `Bearer ${token}`
-    },
+    headers: { ...HEADERS, Authorization: `Bearer ${token}` },
   });
   return res.ok;
 }
 
 
-// =====================
-// ORDER REQUESTS
-// =====================
 
-
-// GET all orders by user
+// ORDER REQUESTS, GET all orders by users
 export async function getOrders(token) {
   const res = await fetch(`${BASE_URL}/orders`, {
     headers: {

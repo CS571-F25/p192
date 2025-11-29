@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);   // decoded user
   const [token, setToken] = useState(null); // raw JWT
 
-  // On page refresh -> restore token
+  // On page refresh， we restore token
   useEffect(() => {
     const storedToken = loadToken();
     if (storedToken) {
@@ -23,21 +23,19 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // ======================
+ 
   // REGISTER
-  // ======================
   const register = async (username, password, role) => {
     return await registerUser(username, password, role);
   };
 
-  // ======================
-  // LOGIN USING REAL JWT
-  // ======================
+  // LOGIN USING JWT
+
   const login = async (username, password) => {
   const account = await loginRequest(username, password);
   if (!account) return false;
 
-  // Fake "token" storage to satisfy your app
+  
   saveToken(JSON.stringify(account));
   setToken(JSON.stringify(account));
   setUser(account);
@@ -45,9 +43,7 @@ export const AuthProvider = ({ children }) => {
   return true;
 };
 
-  // ======================
   // LOGOUT
-  // ======================
   const logout = () => {
     logoutUser();
     setUser(null);

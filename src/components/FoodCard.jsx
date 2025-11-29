@@ -1,8 +1,15 @@
 // src/components/FoodCard.jsx
-import React from "react";
+import React, {useContext} from "react";
 import { Card, Button } from "react-bootstrap";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 export default function FoodCard({ food, onAdd, onEdit, onDelete }) {
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
     <Card style={{ width: "100%", height: "100%" }} className="h-100 shadow-sm">
       <Card.Img
@@ -20,20 +27,19 @@ export default function FoodCard({ food, onAdd, onEdit, onDelete }) {
           ${Number(food.price).toFixed(2)}
         </Card.Text>
 
-        {/* Customer button */}
-        {onAdd && (
-          <Button variant="primary" className="mt-auto" onClick={() => onAdd(food)}>
-            Add to Cart
-          </Button>
-        )}
+        {/* Show Details button */}
+        <Button variant="info" className="mb-2" onClick={() => navigate(`/foods/${food.uuid}`)}>
+          Show Details
+        </Button>
 
-        {/* Admin buttons */}
-        {!onAdd && (
-          <div className="d-flex gap-2 mt-auto">
-            <Button variant="warning" onClick={onEdit}>Edit</Button>
-            <Button variant="danger" onClick={onDelete}>Delete</Button>
-          </div>
-        )}
+        {/* Add button */}
+        {onAdd && ( <Button variant="primary" className="mt-auto" onClick={() => onAdd(food)}> Add to Cart</Button>)}
+
+        {/* Edit button */}
+        {onEdit && (<Button variant="warning" className="mt-2" onClick={() => onEdit(food.uuid)}>Edit </Button>)}
+
+        {/* Delete button */}
+        {onDelete && (<Button variant="danger" className="mt-2" onClick={() => onDelete(food.uuid)}>Delete</Button>)}
       </Card.Body>
     </Card>
   );
