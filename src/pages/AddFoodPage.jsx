@@ -1,4 +1,3 @@
-// src/pages/AddFoodPage.jsx
 import React, { useState, useContext } from "react";
 import { addFood } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +35,7 @@ export default function AddFoodPage() {
                     placeholder="Enter food name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    required
+                    required // required field
                   />
                 </Form.Group>
 
@@ -47,7 +46,7 @@ export default function AddFoodPage() {
                     placeholder="Enter category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    required
+                    required // required field
                   />
                 </Form.Group>
 
@@ -58,7 +57,7 @@ export default function AddFoodPage() {
                     placeholder="Enter price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    required
+                    required // required field
                     min="0"
                     step="0.01"
                   />

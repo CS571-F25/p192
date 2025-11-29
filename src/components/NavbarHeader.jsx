@@ -1,4 +1,3 @@
-// src/components/NavbarHeader.jsx
 import React, { useContext } from "react";
 import { Navbar, Nav, Container, Badge, Image } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,13 +14,13 @@ export default function NavbarHeader() {
     navigate("/login");
   };
 
-  const { cart = [] } = useContext(CartContext); // use cart, default empty array
+  const { cart = [] } = useContext(CartContext); // use cart, empty array as default
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   
    return (
     <Navbar bg="light" expand="lg" className="mb-4 shadow-sm">
       <Container>
-        {/* Logo + Brand */}
+        {/* Logo */}
         <Navbar.Brand as={Link} to="/menu" className="d-flex align-items-center">
           <Image src={`${import.meta.env.BASE_URL}images/paimon-icon.gif`} alt="Logo" width={40} height={40}/>
           Tian's Grab&Go

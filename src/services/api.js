@@ -1,5 +1,3 @@
-// services/api.js
-
 
 const BASE_URL = "https://cs571api.cs.wisc.edu/rest/f25/bucket";
 
@@ -24,7 +22,7 @@ export async function registerUser(username, password, role) {
 }
 
 
-// Login + get JWT
+// Login and get JWT
 export async function loginRequest(username, password) {
   try {
     const res = await fetch(`${BASE_URL}/accounts`, { headers: HEADERS });
@@ -44,17 +42,14 @@ export async function loginRequest(username, password) {
     }
 
 
-    return null; // no match
+    return null; 
   } catch (err) {
     console.error("Login failed:", err);
     return null;
   }
 }
 
-
-
 // GET all foods
-
 
 export async function getFoods() {
   const res = await fetch(`${BASE_URL}/foods`, { headers: HEADERS });
@@ -64,7 +59,6 @@ export async function getFoods() {
     uuid
   }));
 }
-
 
 // POST new food (Admin only)
 export async function addFood(food,token) {
@@ -97,8 +91,6 @@ export async function deleteFood(uuid,token) {
   return res.ok;
 }
 
-
-
 // ORDER REQUESTS, GET all orders by users
 export async function getOrders(token) {
   const res = await fetch(`${BASE_URL}/orders`, {
@@ -111,7 +103,6 @@ export async function getOrders(token) {
   const data = await res.json();
   return data.results;
 }
-
 
 // POST new order
 export async function submitOrder(order, token) {

@@ -1,5 +1,3 @@
-// src/services/auth.js
-
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
@@ -14,7 +12,7 @@ export function loadToken() {
 }
 
 export function decodeToken(token) {
-  return token; // since we store it as JSON
+  return token; 
 }
 
 export function logoutUser() {

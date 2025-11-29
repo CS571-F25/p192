@@ -1,4 +1,3 @@
-// src/pages/ConfirmationPage.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -41,9 +40,7 @@ export default function ConfirmationPage() {
               <Card.Text className="mb-4">
                 At Address: <strong>1300 University Ave, Madison, WI 53707</strong>
               </Card.Text>
-              <Button variant="primary" onClick={() => navigate("/menu")}>
-                Back to Menu
-              </Button>
+              <Button variant="primary" onClick={() => navigate("/menu")}> Back to Menu </Button>
             </Card.Body>
           </Card>
         </Col>

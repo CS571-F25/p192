@@ -1,4 +1,3 @@
-// pages/LoginPage.jsx
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +35,7 @@ export default function LoginPage() {
       <Row className="w-100">
         <Col xs={12} md={6} className="mx-auto">
           <Card className="p-4 shadow-sm">
-            {/* Top icon with title */}
+            {/* icon */}
             <div className="d-flex align-items-center mb-4">
               <Image src={`${import.meta.env.BASE_URL}images/paimon-icon.gif`} alt="Logo" width={40} height={40}/>
               <h3 className="mb-0">Login</h3>
@@ -66,19 +65,11 @@ export default function LoginPage() {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100">
-                Log In
-              </Button>
+              <Button variant="primary" type="submit" className="w-100"> Log In </Button>
             </Form>
 
-            <p className="mt-3 text-center">
-              Don't have an account?{" "}
-              <span
-                style={{ color: "blue", cursor: "pointer" }}
-                onClick={() => navigate("/register")}
-              >
-                Register
-              </span>
+            <p className="mt-3 text-center"> Don't have an account?{" "}
+              <span style={{ color: "blue", cursor: "pointer" }} onClick={() => navigate("/register")}> Register </span>
             </p>
           </Card>
         </Col>

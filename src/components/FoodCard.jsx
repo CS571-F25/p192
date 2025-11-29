@@ -1,4 +1,3 @@
-// src/components/FoodCard.jsx
 import React, {useContext} from "react";
 import { Card, Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";

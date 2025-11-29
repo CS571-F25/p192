@@ -1,4 +1,3 @@
-// src/pages/ItemDetailsPage.jsx
 import React, { useEffect, useState, useContext } from "react";
 import { getFoods } from "../services/api";
 import { useParams, useNavigate } from "react-router-dom";
@@ -41,9 +40,9 @@ export default function ItemDetailsPage() {
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
           <Card className="shadow-sm">
-            <Card.Img
+            <Card.Img 
               variant="top"
-              src={`${import.meta.env.BASE_URL}${food.image || "/images/placeholder.png"}`}
+              src={`${import.meta.env.BASE_URL}${food.image || "/images/placeholder.png"}`} // icon
               alt={food.name}
               style={{ objectFit: "cover", maxHeight: "400px" }}
             />

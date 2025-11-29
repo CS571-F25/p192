@@ -1,4 +1,3 @@
-// src/pages/ManageFoodPage.jsx
 import React, { useEffect, useState, useContext } from "react";
 import { getFoods, deleteFood } from "../services/api";
 import { AuthContext } from "../context/AuthContext";
@@ -18,11 +17,11 @@ export default function ManageFoodPage() {
   const itemsPerPage = 8;
 
 
-  // Fetch all foods
+  // get all foods
   useEffect(() => {
     const fetchFoods = async () => {
       const data = await getFoods();
-      setFoods(data); // uuid included
+      setFoods(data);
     };
     fetchFoods();
   }, []);
@@ -61,12 +60,8 @@ export default function ManageFoodPage() {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Manage Foods</h1>
         <div>
-          <Button variant="secondary" onClick={() => navigate("/menu")} className="me-2">
-            Back to Menu
-          </Button>
-          <Button variant="primary" onClick={() => navigate("/foods/add")}>
-            Add Food
-          </Button>
+          <Button variant="secondary" onClick={() => navigate("/menu")} className="me-2"> Back to Menu </Button>
+          <Button variant="primary" onClick={() => navigate("/foods/add")}> Add Food </Button>
         </div>
       </div>
 

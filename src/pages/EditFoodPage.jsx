@@ -1,4 +1,3 @@
-// src/pages/EditFoodPage.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { updateFood, getFoods } from "../services/api";
 import { useParams, useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ export default function EditFoodPage() {
               type="text"
               value={food.name}
               onChange={(e) => setFood({ ...food, name: e.target.value })}
-              required
+              required // required field
             />
           </Col>
         </Form.Group>
@@ -60,7 +59,7 @@ export default function EditFoodPage() {
               type="text"
               value={food.category}
               onChange={(e) => setFood({ ...food, category: e.target.value })}
-              required
+              required // required field
             />
           </Col>
         </Form.Group>
@@ -72,7 +71,7 @@ export default function EditFoodPage() {
               type="number"
               value={food.price}
               onChange={(e) => setFood({ ...food, price: e.target.value })}
-              required
+              required // required field
             />
           </Col>
         </Form.Group>

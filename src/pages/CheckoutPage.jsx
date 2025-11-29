@@ -1,4 +1,3 @@
-// src/pages/CheckoutPage.jsx
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { submitOrder } from "../services/api";
@@ -46,9 +45,8 @@ export default function CheckoutPage() {
                   />
                   <Card.Body className="d-flex flex-column">
                     <Card.Title>{item.name}</Card.Title>
-                    <Card.Text className="flex-grow-1">
-                      Quantity: {item.quantity} <br />
-                      ${ (item.price * item.quantity).toFixed(2) }
+                    <Card.Text className="flex-grow-1"> 
+                    Quantity: {item.quantity} <br /> ${ (item.price * item.quantity).toFixed(2) }
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -59,12 +57,8 @@ export default function CheckoutPage() {
           <h3 className="text-end mt-4">Total: ${total.toFixed(2)}</h3>
 
           <div className="d-flex justify-content-between mt-4 flex-wrap gap-2">
-            <Button variant="secondary" onClick={() => navigate("/cart")}>
-              Back to Cart
-            </Button>
-            <Button variant="primary" onClick={handleConfirm}>
-              Confirm Order
-            </Button>
+            <Button variant="secondary" onClick={() => navigate("/cart")}> Back to Cart </Button>
+            <Button variant="primary" onClick={handleConfirm}> Confirm Order </Button>
           </div>
         </>
       )}

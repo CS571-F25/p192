@@ -1,4 +1,3 @@
-// src/pages/CartPage.jsx
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -17,9 +16,7 @@ export default function CartPage() {
       {cart.length === 0 ? (
         <div className="text-center">
           <p>Your cart is empty.</p>
-          <Button variant="primary" onClick={() => navigate("/menu")}>
-            Back to Menu
-          </Button>
+          <Button variant="primary" onClick={() => navigate("/menu")}> Back to Menu</Button>
         </div>
       ) : (
         <>
@@ -35,19 +32,12 @@ export default function CartPage() {
                   />
                   <Card.Body className="d-flex flex-column">
                     <Card.Title>{item.name}</Card.Title>
-                    <Card.Text className="flex-grow-1">
-                      {item.category} <br />
-                      ${item.price.toFixed(2)}
-                    </Card.Text>
+                    <Card.Text className="flex-grow-1">{item.category} <br />${item.price.toFixed(2)}</Card.Text>
 
                     <div className="d-flex align-items-center justify-content-between">
-                      <Button variant="outline-danger" onClick={() => decrementFromCart(item.uuid)}>
-                        -
-                      </Button>
+                      <Button variant="outline-danger" onClick={() => decrementFromCart(item.uuid)}> - </Button>
                       <span>{item.quantity}</span>
-                      <Button variant="outline-success" onClick={() => addToCart(item)}>
-                        +
-                      </Button>
+                      <Button variant="outline-success" onClick={() => addToCart(item)}> + </Button>
                     </div>
 
                     
@@ -60,15 +50,9 @@ export default function CartPage() {
           <h3 className="mt-4 text-center">Total: ${total.toFixed(2)}</h3>
 
           <div className="d-flex justify-content-center gap-3 mt-3 flex-wrap">
-            <Button variant="primary" onClick={() => navigate("/checkout")}>
-              Proceed to Checkout
-            </Button>
-            <Button variant="outline-secondary" onClick={() => navigate("/menu")}>
-              Back to Menu
-            </Button>
-            <Button variant="danger" onClick={clearCart}>
-              Clear Cart
-            </Button>
+            <Button variant="primary" onClick={() => navigate("/checkout")}> Proceed to Checkout </Button>
+            <Button variant="outline-secondary" onClick={() => navigate("/menu")}> Back to Menu </Button>
+            <Button variant="danger" onClick={clearCart}> Clear Cart </Button>
           </div>
         </>
       )}

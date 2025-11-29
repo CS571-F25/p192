@@ -1,5 +1,3 @@
-// context/AuthContext.jsx
-
 import React, { createContext, useState, useEffect } from "react";
 import { loginRequest, registerUser } from "../services/api";
 import { saveToken, loadToken, logoutUser, decodeToken } from "../services/auth";
@@ -30,7 +28,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   // LOGIN USING JWT
-
   const login = async (username, password) => {
   const account = await loginRequest(username, password);
   if (!account) return false;

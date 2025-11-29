@@ -1,4 +1,3 @@
-// src/pages/MenuPage.jsx
 import React, { useEffect, useState, useContext } from "react";
 import { getFoods } from "../services/api";
 import { CartContext } from "../context/CartContext";
@@ -33,7 +32,7 @@ export default function MenuPage() {
 
   useEffect(() => {
   const fetchFoods = async () => {
-    const data = await getFoods(); // returns array now
+    const data = await getFoods(); // wait til array returns
     setFoods(data);
 
     const cats = Array.from(new Set(data.map((food) => food.category)));
@@ -63,11 +62,12 @@ export default function MenuPage() {
     addToCart(food);
     setToastMessage(`${food.name} added to cart!`);
     setShowToast(true);
-    setTimeout(() => setShowToast(false), 2000);
+    setTimeout(() => setShowToast(false), 2000); // auto hide after 2 seconds
     };
 
   return (
     <Container fluid className="my-4">
+
       {/* Navbar */}
       <NavbarHeader />
 
@@ -96,47 +96,41 @@ export default function MenuPage() {
       <Col xs={12} md={10}>
     <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm}/>
 
-  {/* Center the row */}
-  <Row className="g-3">
-  {paginatedFoods.length > 0 ? (
-    paginatedFoods.map((food) => (
-      <Col key={food.uuid} xs={12} sm={6} md={4} lg={3}>
-        <FoodCard food={food} 
-        onAdd={user.role !== "manager" ? () => handleAddToCart(food) : null} >
-        </FoodCard>
+    {/* Center the row */}
+    <Row className="g-3">
+    {paginatedFoods.length > 0 ? (
+      paginatedFoods.map((food) => (
+        <Col key={food.uuid} xs={12} sm={6} md={4} lg={3}>
+          <FoodCard food={food} 
+          onAdd={user.role !== "manager" ? () => handleAddToCart(food) : null} >
+          </FoodCard>
+        </Col>
+      ))
+    ) : (
+      <Col>
+        <p className="text-center mt-4">No foods found.</p>
       </Col>
-    ))
-  ) : (
-    <Col>
-      <p className="text-center mt-4">No foods found.</p>
-    </Col>
-  )}
-</Row>
+    )}
+  </Row>
 
-  <PaginationBar
-    currentPage={currentPage}
-    totalPages={totalPages}
-    onPrev={handlePrev}
-    onNext={handleNext}
-  />
-</Col>
-      </Row>
+    <PaginationBar
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPrev={handlePrev}
+      onNext={handleNext}
+    />
+  </Col>
+        </Row>
 
-       {/* Toast Notification */}
-      <ToastContainer className="p-3" position="bottom-end">
-        <Toast
-          show={showToast}
-          bg="primary"
-          onClose={() => setShowToast(false)}
-          delay={2000}
-          autohide
-        >
-          <Toast.Header>
-            <strong className="me-auto">Cart</strong>
-          </Toast.Header>
-          <Toast.Body>{toastMessage}</Toast.Body>
-        </Toast>
-      </ToastContainer>
-    </Container>
-  );
-}
+        {/* Toast Notification */}
+        <ToastContainer className="p-3" position="bottom-end">
+          <Toast show={showToast} bg="primary" onClose={() => setShowToast(false)} delay={2000} autohide>
+            <Toast.Header>
+              <strong className="me-auto">Cart</strong>
+            </Toast.Header>
+            <Toast.Body>{toastMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      </Container>
+    );
+  }

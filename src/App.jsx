@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";

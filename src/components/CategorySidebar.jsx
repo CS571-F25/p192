@@ -1,4 +1,3 @@
-// src/components/CategorySidebar.jsx
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 
