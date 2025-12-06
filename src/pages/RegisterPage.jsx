@@ -7,7 +7,7 @@ export default function RegisterPage() {
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "", confirmPassword: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -23,8 +23,16 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
 
-    if (!formData.username || !formData.password) {
+
+
+
+    if (!formData.username || !formData.password || !formData.confirmPassword) {
       return setError("Please fill all fields.");
+    }
+
+    // validate password match
+    if (formData.password !== formData.confirmPassword) {
+      return setError("Passwords do not match.");
     }
 
     try {
@@ -71,6 +79,17 @@ export default function RegisterPage() {
                   type="password"
                   name="password"
                   value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="confirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
                   onChange={handleChange}
                   required
                 />
